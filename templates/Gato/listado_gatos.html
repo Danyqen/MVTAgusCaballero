@@ -12,20 +12,13 @@
 
 {% block despues_del_header %}
 <p>
-    <a href={% url 'crear_perro' %}>Crear Gato</a>
+    <a href={% url 'crear_gato' %}>Crear Gato</a>
 </p>
 
 <p>
-    <form action={% url 'listado_gatos' %}>
-        {{form}}
-        <button>Buscar</button>
-    </form>
-</p>
-
-<p>
-    {% if listado_gatos %}
+    {% if object_list %}
     <ul>
-        {% for gato in listado_gatos %}
+        {% for gato in object_list %}
         <li>
             {{gato}} 
             <a href={% url 'mostrar_gato' gato.id %}>Mostrar</a>
