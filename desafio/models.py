@@ -9,3 +9,6 @@ class Perro(models.Model):
     
     def __str__(self):
         return f'Soy un perro llamado {self.nombre}'
+    
+
+

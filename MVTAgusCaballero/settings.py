@@ -56,7 +56,7 @@ ROOT_URLCONF = 'MVTAgusCaballero.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\usuario\Desktop\Proyectos\MVTAgusCaballero\templates'],
+        'DIRS': [r'C:\Users\usuario\Desktop\idk\Proyectos\MVTAgusCaballero\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

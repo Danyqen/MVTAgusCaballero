@@ -1,3 +1,9 @@
+from .forms import BusquedaPerro, FormPerro
+
+from .forms import BusquedaPerro, FormPerro
+from .models import Perro
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect, render
@@ -6,18 +12,14 @@ from .forms import BusquedaPerro, FormPerro
 from .models import Perro
 from datetime import datetime
 
-# Create your views here.
+# <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 def una_vista(request):
     return render(request, 'index.html')
 
+# <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
 def crear_perro(request):
-    
-    # nombre = request.POST.get('nombre')
-    # edad = request.POST.get('edad')
-    
-    # perro = Perro(nombre=nombre, edad=edad, fecha_creacion=datetime.now())
-    # perro.save()
     
     if request.method == 'POST':
         form = FormPerro(request.POST)
@@ -43,17 +45,16 @@ def crear_perro(request):
             return redirect('listado_perros')
         
         else:
-            return render(request, 'crear_perro.html', {'form': form})
+            return render(request, 'Perro/crear_perro.html', {'form': form})
             
             
             
     
     form_perro = FormPerro()
 
-    return render(request, 'crear_perro.html', {'form': form_perro})
+    return render(request, 'Perro/crear_perro.html', {'form': form_perro})
 
-
-
+# <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 def listado_perros(request):
     
@@ -66,4 +67,40 @@ def listado_perros(request):
     
     form = BusquedaPerro()
 
-    return render(request, 'listado_perros.html', {'listado_perros': listado_perros, 'form': form})
+    return render(request, 'Perro/listado_perros.html', {'listado_perros': listado_perros, 'form': form})
+
+# <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+def editar_perro(request, id):
+    perro = Perro.objects.get(id=id)
+    
+    if request.method == 'POST':
+        form = FormPerro(request.POST)
+        if form.is_valid():
+            perro.nombre = form.cleaned_data.get('nombre')
+            perro.edad = form.cleaned_data.get('edad')
+            perro.fecha_creacion = form.cleaned_data.get('fecha_creacion')
+            perro.save()
+            
+            return redirect('listado_perros')
+        else:
+            return render(request, 'Perro/editar_perro.html',{'form': form, 'perro': perro})
+    
+    form_perro = FormPerro(initial={'nombre': perro.nombre, 'edad': perro.edad, 'fecha_creacion': perro.fecha_creacion})
+   
+    return render(request, 'Perro/editar_perro.html', {'form': form_perro, 'perro': perro})
+    
+# <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    
+def eliminar_perro(request, id):
+    perro = Perro.objects.get(id=id)
+    perro.delete()
+    
+    return redirect('listado_perros')
+
+# <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+def mostrar_perro(request, id):
+    perro = Perro.objects.get(id=id)
+    return render(request, 'Perro/mostrar_perro.html', {'perro': perro})
+    
