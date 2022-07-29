@@ -2,6 +2,7 @@ from .models import Gato
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ListadoGatos(ListView):
@@ -16,14 +17,14 @@ class CrearGato(CreateView):
     fields = ['apodo', 'edad', 'fecha_creacion']
 
     
-class EditarGato(UpdateView):
+class EditarGato(LoginRequiredMixin, UpdateView):
     model=Gato
     template_name = 'Gato/editar_gato.html'
     success_url = '/mascotas/gatos'
     fields = ['apodo', 'edad', 'fecha_creacion']
     
     
-class EliminarGato(DeleteView):
+class EliminarGato(LoginRequiredMixin, DeleteView):
     model=Gato
     template_name = 'Gato/eliminar_gato.html'
     success_url = '/mascotas/gatos'

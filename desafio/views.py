@@ -1,16 +1,11 @@
-from .forms import BusquedaPerro, FormPerro
-
-from .forms import BusquedaPerro, FormPerro
-from .models import Perro
-from datetime import datetime
-
-from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import redirect, render
 
+from accounts.views import login
+
 from .forms import BusquedaPerro, FormPerro
 from .models import Perro
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 # <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
@@ -71,6 +66,7 @@ def listado_perros(request):
 
 # <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
+@login_required
 def editar_perro(request, id):
     perro = Perro.objects.get(id=id)
     
@@ -91,7 +87,7 @@ def editar_perro(request, id):
     return render(request, 'Perro/editar_perro.html', {'form': form_perro, 'perro': perro})
     
 # <---------------------------------------------------------------------------------------------------------------------------------------------------------------->
-    
+@login_required
 def eliminar_perro(request, id):
     perro = Perro.objects.get(id=id)
     perro.delete()
