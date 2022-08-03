@@ -1,0 +1,27 @@
+{% extends 'base.html' %}   
+
+{% block title %}
+<title>Eliminar Monstruo</title>
+{% endblock title %}
+
+{% block texto_header %}
+<h1>
+    Eliminar Monstruo
+</h1>
+{% endblock texto_header %}
+
+{% block despues_del_header %}
+<p>
+    <a href={% url 'list_monster' %}>Volver</a>
+</p>
+
+<p>
+    <form action={% url 'delete_monster' object.id %} method='post'>
+        {% csrf_token %}
+        ¿Desea eliminar el monstruo?
+        <button>Confirmar</button>
+    </form>
+</p>
+
+{% endblock despues_del_header %}
+

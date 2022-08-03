@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Gato(models.Model):
     apodo = models.CharField(max_length=30)
     edad = models.IntegerField()

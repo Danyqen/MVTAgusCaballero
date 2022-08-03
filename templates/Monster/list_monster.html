@@ -1,0 +1,35 @@
+{% extends 'base.html' %}   
+
+{% block title %}
+<title>Listado de Gatos</title>
+{% endblock title %}
+
+{% block texto_header %}
+<h1>
+    Listado de Monstruos
+</h1>
+{% endblock texto_header %}
+
+{% block despues_del_header %}
+<p>
+    <a href={% url 'create_monster' %}>Crear Monstruo</a>
+</p>
+
+<p>
+    {% if object_list %}
+    <ul>
+        {% for monster in object_list %}
+        <li>
+            {{monster}} 
+            <a href={% url 'show_monster' monster.id %}>Mostrar</a>
+            <a href={% url 'edit_monster' monster.id %}>Editar</a>
+            <a href={% url 'delete_monster' monster.id %}>Eliminar</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    No se encontraron datos
+    {% endif %}
+</p>
+{% endblock despues_del_header %}
+
